@@ -41,6 +41,16 @@ require_relative './models/congressperson.rb'
 # end
 
 # -----------------------
+# x = Congressperson.where(title: 'Sen')
+# noofsenators = x.length
+# puts "Senators: " + noofsenators.to_s
+# x = Congressperson.where(title: 'Rep')
+# noofrepresentatives = x.length
+# puts "Representatives: " + noofrepresentatives.to_s
+# -----------------------
+Congressperson.destroy_all(title: 'Sen', in_office: false)
+Congressperson.destroy_all(title: 'Rep', in_office: false)
+
 x = Congressperson.where(title: 'Sen')
 noofsenators = x.length
 puts "Senators: " + noofsenators.to_s
