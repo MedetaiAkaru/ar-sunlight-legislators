@@ -31,11 +31,19 @@ require_relative './models/congressperson.rb'
 # puts input.to_s + " Senators: " + noofsenators.to_s + " (" + (noofsenators*100/totalnoofsenators).to_s + "%)"
 # puts input.to_s + " Representatives: " + noofrepresentatives.to_s + " (" + (noofrepresentatives*100/totalnoofrepresentatives).to_s + "%)"
 # ------------
-puts "By State"
-states = Congressperson.where(in_office: true).group(:state).order("count_title desc").count("title")
-states.each do |k,v|
-	eachstate = Congressperson.where(state: k, in_office: true).group(:title).count(:title)
-	unless eachstate["Sen"].nil? && eachstate["Rep"].nil?
-		puts k + ": " + eachstate["Sen"].to_s + " Senators, " + eachstate["Rep"].to_s + " Representatives"
-	end
-end
+# puts "By State"
+# states = Congressperson.where(in_office: true).group(:state).order("count_title desc").count("title")
+# states.each do |k,v|
+# 	eachstate = Congressperson.where(state: k, in_office: true).group(:title).count(:title)
+# 	unless eachstate["Sen"].nil? && eachstate["Rep"].nil?
+# 		puts k + ": " + eachstate["Sen"].to_s + " Senators, " + eachstate["Rep"].to_s + " Representatives"
+# 	end
+# end
+
+# -----------------------
+x = Congressperson.where(title: 'Sen')
+noofsenators = x.length
+puts "Senators: " + noofsenators.to_s
+x = Congressperson.where(title: 'Rep')
+noofrepresentatives = x.length
+puts "Representatives: " + noofrepresentatives.to_s
