@@ -17,16 +17,25 @@ require_relative './models/congressperson.rb'
 # puts "Which gender stats do you want to look at?"
 # input = gets.chomp
 # ------------------------
-puts "Gender Stats"
-x = Congressperson.where(gender: input, title: 'Sen', in_office: true)
-noofsenators = x.length
-x = Congressperson.where(gender: input, title: 'Rep', in_office: true)
-noofrepresentatives = x.length
+# puts "Gender Stats"
+# x = Congressperson.where(gender: input, title: 'Sen', in_office: true)
+# noofsenators = x.length
+# x = Congressperson.where(gender: input, title: 'Rep', in_office: true)
+# noofrepresentatives = x.length
 
-x = Congressperson.where(title: 'Sen', in_office: true)
-totalnoofsenators = x.length
-x = Congressperson.where(title: 'Rep', in_office: true)
-totalnoofrepresentatives = x.length
+# x = Congressperson.where(title: 'Sen', in_office: true)
+# totalnoofsenators = x.length
+# x = Congressperson.where(title: 'Rep', in_office: true)
+# totalnoofrepresentatives = x.length
 
-puts input.to_s + " Senators: " + noofsenators.to_s + " (" + (noofsenators*100/totalnoofsenators).to_s + "%)"
-puts input.to_s + " Representatives: " + noofrepresentatives.to_s + " (" + (noofrepresentatives*100/totalnoofrepresentatives).to_s + "%)"
+# puts input.to_s + " Senators: " + noofsenators.to_s + " (" + (noofsenators*100/totalnoofsenators).to_s + "%)"
+# puts input.to_s + " Representatives: " + noofrepresentatives.to_s + " (" + (noofrepresentatives*100/totalnoofrepresentatives).to_s + "%)"
+# ------------
+puts "By State"
+states = Congressperson.where(in_office: true).group(:state).order("count_title desc").count("title")
+states.each do |k,v|
+	eachstate = Congressperson.where(state: k, in_office: true).group(:title).count(:title)
+	unless eachstate["Sen"].nil? && eachstate["Rep"].nil?
+		puts k + ": " + eachstate["Sen"].to_s + " Senators, " + eachstate["Rep"].to_s + " Representatives"
+	end
+end
